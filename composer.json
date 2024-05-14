@@ -39,6 +39,7 @@
     "require-dev": {
         "brianium/paratest": "^7.4",
         "fakerphp/faker": "^1.23",
+        "friendsofphp/php-cs-fixer": "^3.56",
         "larastan/larastan": "^2.9",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
@@ -56,6 +57,7 @@
     "scripts": {
         "all": [
             "@lint",
+            "@php-cs-fixer",
             "@coverage",
             "@phpstan",
             "@psalm"
@@ -64,6 +66,7 @@
             "XDEBUG_MODE=coverage ./artisan test --parallel --recreate-databases --coverage-html=public/coverage --coverage-xml=public/coverage/coverage-xml --log-junit=public/coverage/junit.xml"
         ],
         "lint": "parallel-lint --colors app config database routes tests",
+        "php-cs-fixer": "php-cs-fixer fix --dry-run --config=php-cs-fixer.php -v --diff",
         "phpstan": [
             "Composer\\Config::disableProcessTimeout",
             "phpstan analyze"
@@ -89,15 +92,20 @@
             "@phpstan",
             "@psalm"
         ],
+        "style": [
+            "@php-cs-fixer"
+        ],
         "test": "./artisan test --parallel --recreate-databases"
     },
     "scripts-descriptions": {
         "all": "Run all unit/feature tests with code coverage, then static analysis",
         "coverage": "Run all unit/feature tests and create a code coverage report in public/coverage",
         "lint": "Run lint across the code base to make sure it's syntactically valid",
+        "php-cs-fixer": "Run php-cs-fixer",
         "phpstan": "Run PHPstan",
         "psalm": "Run Psalm",
         "static": "Run static analysis (Lint, PHPStan, and Psalm)",
+        "style": "Run all style checks (php-cs-fixer)",
         "test": "Run all unit/feature tests"
     },
     "type": "project"
