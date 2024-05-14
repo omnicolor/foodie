@@ -1,0 +1,14 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+parameters:
+    exceptions:
+        check:
+            tooWideThrowType: true
+    level: 8
+    paths:
+        - %currentWorkingDirectory%/app
+        - %currentWorkingDirectory%/tests
+    polluteScopeWithAlwaysIterableForeach: false
+    reportMaybesInPropertyPhpDocTypes: false
+    treatPhpDocTypesAsCertain: false
