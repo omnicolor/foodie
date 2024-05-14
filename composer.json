@@ -50,6 +50,17 @@
         "spatie/laravel-ignition": "^2.4"
     },
     "scripts": {
+        "all": [
+            "@coverage",
+            "@phpstan"
+        ],
+        "coverage": [
+            "XDEBUG_MODE=coverage phpunit --coverage-html=public/coverage --coverage-xml=public/coverage/coverage-xml --log-junit=public/coverage/junit.xml"
+        ],
+        "phpstan": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpstan analyze"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
@@ -64,7 +75,15 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
-        ]
+        ],
+        "static": [
+            "@phpstan"
+        ],
+        "test": "phpunit"
+    },
+    "scripts-descriptions": {
+        "all": "Run all unit/feature tests with code coverage, then static analysis",
+        "phpstan": "Run PHPstan"
     },
     "type": "project"
 }
