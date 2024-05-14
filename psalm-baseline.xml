@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.24.0@462c80e31c34e58cc4f750c656be3927e80e550e">
+  <file src="vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/HasFactory.php">
+    <InvalidReturnType>
+      <code><![CDATA[\Illuminate\Database\Eloquent\Factories\Factory<static>]]></code>
+    </InvalidReturnType>
+  </file>
+</files>

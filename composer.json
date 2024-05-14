@@ -43,19 +43,22 @@
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.0",
+        "nunomaduro/collision": "^8.1",
         "php-parallel-lint/php-parallel-lint": "^1.4",
         "phpstan/phpstan": "^1.11",
         "phpstan/phpstan-strict-rules": "^1.6",
-        "phpunit/phpunit": "^11.0.1",
+        "phpunit/phpunit": "^10.5",
+        "psalm/plugin-laravel": "^2.11",
         "roave/security-advisories": "dev-master",
-        "spatie/laravel-ignition": "^2.4"
+        "spatie/laravel-ignition": "^2.4",
+        "vimeo/psalm": "^5.24"
     },
     "scripts": {
         "all": [
             "@lint",
             "@coverage",
-            "@phpstan"
+            "@phpstan",
+            "@psalm"
         ],
         "coverage": [
             "XDEBUG_MODE=coverage ./artisan test --parallel --recreate-databases --coverage-html=public/coverage --coverage-xml=public/coverage/coverage-xml --log-junit=public/coverage/junit.xml"
@@ -80,15 +83,22 @@
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
+        "psalm": "psalm",
         "static": [
-            "@phpstan"
+            "@lint",
+            "@phpstan",
+            "@psalm"
         ],
         "test": "./artisan test --parallel --recreate-databases"
     },
     "scripts-descriptions": {
         "all": "Run all unit/feature tests with code coverage, then static analysis",
+        "coverage": "Run all unit/feature tests and create a code coverage report in public/coverage",
         "lint": "Run lint across the code base to make sure it's syntactically valid",
-        "phpstan": "Run PHPstan"
+        "phpstan": "Run PHPstan",
+        "psalm": "Run Psalm",
+        "static": "Run static analysis (Lint, PHPStan, and Psalm)",
+        "test": "Run all unit/feature tests"
     },
     "type": "project"
 }
