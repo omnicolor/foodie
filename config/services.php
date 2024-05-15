@@ -37,4 +37,7 @@ return [
         ],
     ],
 
+    'truck_provider' => [
+        'uri' => env('TRUCK_URI'),
+    ],
 ];

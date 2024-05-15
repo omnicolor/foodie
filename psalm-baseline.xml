@@ -3,6 +3,7 @@
   <file src="vendor/laravel/framework/src/Illuminate/Database/Eloquent/Factories/HasFactory.php">
     <InvalidReturnType>
       <code><![CDATA[\Illuminate\Database\Eloquent\Factories\Factory<static>]]></code>
+      <code><![CDATA[\Illuminate\Database\Eloquent\Factories\Factory<static>]]></code>
     </InvalidReturnType>
   </file>
 </files>
