@@ -1,7 +1,7 @@
 <h1 align="center">omnicolor/foodie</h1>
 <p align="center">What food truck are we enjoying today?</p>
 
-**omnicolor/foodie** is a Laravel app that stores food truck data and integrates it into a Slack bot to allow randomly choosing a nearby food truck for your team to try.
+**omnicolor/foodie** is a Laravel app that stores food truck data and integrates it into a Slack bot to allow randomly choosing a nearby food truck for your team to try. Though the data source we use includes push carts, those are not included. We've all seen too many movies of high-speed chases sending a push cart flying: they're just not safe.
 
 ## Installation
 After cloning the repository, install the [Composer](https://getcomposer.org) dependencies:
@@ -23,7 +23,7 @@ Though the data does not change that often, this script should be run on a regul
 If you'd like to ingest data from a different provider, update the TRUCK_URI variable in your `.env` file.
 
 ## Development
-All of the automated tests can be run through composer:
+All of the automated tests can be run through Composer:
 
 ```shell
 $ composer all
