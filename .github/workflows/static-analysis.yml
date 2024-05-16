@@ -3,7 +3,7 @@ name: PHP Static Analysis
 on: pull_request
 
 jobs:
-  lint:
+  Lint:
     runs-on: "ubuntu-latest"
     strategy:
       matrix:
