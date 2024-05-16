@@ -18,7 +18,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           coverage: none
-          extensions: "json, mbstring, pdo"
+          extensions: "json, mbstring, mongodb, pdo"
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -36,7 +36,7 @@ jobs:
         run: composer install --no-progress --no-interaction
 
       - name: Check syntax (php-parallel-lint)
-        run: vendor/bin/parallel-lint app config data tests
+        run: vendor/bin/parallel-lint app config database tests
 
   PHPStan:
     runs-on: "ubuntu-latest"
@@ -46,6 +46,41 @@ jobs:
           - "8.3"
     steps:
       - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+          extensions: "json, mbstring, mongodb, pdo"
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress --no-interaction
+
+      - name: Run PHPStan analysis
+        run: vendor/bin/phpstan analyze
+
+  Psalm:
+    runs-on: "ubuntu-latest"
+    strategy:
+      matrix:
+        php-version:
+          - "8.3"
+    steps:
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Install PHP with extensions
@@ -70,5 +105,5 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-progress --no-interaction
 
-      - name: Run PHPStan analysis
-        run: vendor/bin/phpstan analyze
+      - name: Psalm
+        run: vendor/bin/psalm
