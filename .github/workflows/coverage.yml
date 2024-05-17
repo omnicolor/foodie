@@ -40,8 +40,12 @@ jobs:
       - name: Install Composer dependencies and app configuration
         run: composer install --no-progress --no-interaction
 
-      - name: Configure SQLite database
-        run: touch ${{ github.workspace }}/foodie-test
+      - name: Configure MySQL database
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version: '8.0'
+          mysql database: foodie_test
+          mysql root password: root
 
       - name: Execute unit tests with code coverage
         run: ./artisan test --parallel --coverage-clover public/coverage/clover.xml
