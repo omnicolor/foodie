@@ -9,6 +9,8 @@ use Illuminate\Console\Command;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use MatanYadaev\EloquentSpatial\Enums\Srid;
+use MatanYadaev\EloquentSpatial\Objects\Point;
 
 use function array_filter;
 use function array_walk;
@@ -61,25 +63,27 @@ class ImportFoodTruckData extends Command
     /**
      * @param array<int, array<int, array<int, bool|null|string>|int|null|string>> $data
      * @param array<string, int> $fieldMap
-     * @return array<int, array<string, float|string>>
+     * @return array<int, FoodTruck>
      */
     protected function filterData(array $data, array $fieldMap): array
     {
-        $type = $fieldMap['facilitytype'];
-        $status = $fieldMap['status'];
-
         $approvedTrucks = array_filter(
             $data,
-            function (array $vendor) use ($type, $status): bool {
-                if (FoodTruck::TYPE_TRUCK !== $vendor[$type]) {
+            function (array $vendor) use ($fieldMap): bool {
+                if (FoodTruck::TYPE_TRUCK !== $vendor[$fieldMap['facilitytype']]) {
                     // Ignore Push Carts or any other non-food truck options
                     // that may be added in the future.
                     return false;
                 }
 
-                if (FoodTruck::STATUS_APPROVED !== $vendor[$status]) {
+                if (FoodTruck::STATUS_APPROVED !== $vendor[$fieldMap['status']]) {
                     // Ignore any food trucks that haven't been approved for
                     // a permit to operate.
+                    return false;
+                }
+
+                if (0 == $vendor[$fieldMap['latitude']]) {
+                    // Ignore any food trucks that don't have location data.
                     return false;
                 }
 
@@ -90,13 +94,16 @@ class ImportFoodTruckData extends Command
         array_walk(
             $approvedTrucks,
             function (array &$truck) use ($fieldMap): void {
-                $truck = [
-                    'cuisine' => $truck[$fieldMap['fooditems']],
-                    'name' => $truck[$fieldMap['applicant']],
-                    'latitude' => $truck[$fieldMap['latitude']],
-                    'longitude' => $truck[$fieldMap['longitude']],
-                    'truck_id' => $truck[$fieldMap['objectid']],
-                ];
+                $truck = new FoodTruck([
+                    'cuisine' => $truck[$fieldMap['fooditems']] ?? '',
+                    'name' => $truck[$fieldMap['applicant']] ?? '',
+                    'location' => new Point(
+                        (float)$truck[$fieldMap['latitude']],
+                        (float)$truck[$fieldMap['longitude']],
+                        Srid::WGS84->value,
+                    ),
+                    'truck_id' => $truck[$fieldMap['objectid']] ?? '',
+                ]);
             }
         );
 
@@ -135,7 +142,13 @@ class ImportFoodTruckData extends Command
         $fieldMap = $this->loadFieldMap($response->json('meta.view.columns'));
         $trucks = $this->filterData($response->json('data'), $fieldMap);
         FoodTruck::truncate();
-        FoodTruck::insert($trucks);
+
+        // The Geospatial stuff is handled by Eloquent, and I couldn't (quickly)
+        // figure out a clean way to insert them in one go.
+        foreach ($trucks as $truck) {
+            $truck->save();
+        }
+
         $this->info(sprintf('Loaded %d food trucks', number_format(count($trucks))));
     }
 }
