@@ -10,7 +10,7 @@ jobs:
         php-version:
           - "8.3"
     services:
-	    mysql:
+      mysql:
         image: mysql:8.0
         env:
           MYSQL_DATABASE: foodie_test
