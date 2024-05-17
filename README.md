@@ -10,7 +10,7 @@ After cloning the repository, install the [Composer](https://getcomposer.org) de
 composer install
 ./artisan migrate
 ```
-Since this project only uses a small amount of data and doesn't have much in the way of complicated queries or concurrency, it uses SQLite3 for its local database.
+Since this project requires geospatial calculations, it needs a database with those extensions, like MySQL.
 
 ## Loading data
 Ingesting data is done via an Artisan command:
