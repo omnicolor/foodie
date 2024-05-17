@@ -67,7 +67,7 @@
             "@psalm"
         ],
         "coverage": [
-            "XDEBUG_MODE=coverage ./artisan test --parallel --recreate-databases --coverage-html=public/coverage --coverage-xml=public/coverage/coverage-xml --log-junit=public/coverage/junit.xml"
+            "XDEBUG_MODE=coverage ./artisan test --parallel --recreate-databases --coverage-html=public/coverage-report"
         ],
         "lint": "parallel-lint --colors app config database routes tests",
         "php-cs-fixer": "php-cs-fixer fix --dry-run --config=php-cs-fixer.php -v --diff",
