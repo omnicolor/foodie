@@ -50,7 +50,7 @@ jobs:
       - name: Execute unit tests with code coverage
         run: ./vendor/bin/phpunit --coverage-clover public/coverage/clover.xml
         env:
-          DB_DATABASE: "${{ github.workspace }}/foodie-test"
+          DB_DATABASE: "${{ github.workspace }}/foodie_test"
 
       - if: github.event_name == 'push' && ! contains(github.event.push.user.login, 'dependabot[bot]')
         name: Monitor coverage
