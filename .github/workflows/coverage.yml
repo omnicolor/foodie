@@ -9,6 +9,21 @@ jobs:
       matrix:
         php-version:
           - "8.3"
+    services:
+	    mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: foodie_test
+          MYSQL_USER: foodie_test
+          MYSQL_PASSWORD: foodie_test
+          MYSQL_ROOT_PASSWORD: rootpassword
+        ports:
+          - "3306:3306"
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -40,17 +55,11 @@ jobs:
       - name: Install Composer dependencies and app configuration
         run: composer install --no-progress --no-interaction
 
-      - name: Configure MySQL database
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql version: '8.0'
-          mysql database: foodie_test
-          mysql root password: root
+      - name: Run database migrations
+        run ./artisan migrate --env=testing
 
       - name: Execute unit tests with code coverage
         run: ./vendor/bin/phpunit --coverage-clover public/coverage/clover.xml
-        env:
-          DB_DATABASE: "${{ github.workspace }}/foodie_test"
 
       - if: github.event_name == 'push' && ! contains(github.event.push.user.login, 'dependabot[bot]')
         name: Monitor coverage
