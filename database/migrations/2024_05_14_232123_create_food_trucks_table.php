@@ -15,8 +15,7 @@ return new class() extends Migration {
             // Give it a bit of space in case a vendor is very verbose.
             $table->string('cuisine', 255);
             $table->string('name', 255);
-            $table->double('latitude');
-            $table->double('longitude');
+            $table->geography('location', subtype: 'point', srid: 4326);
             $table->string('truck_id');
         });
     }

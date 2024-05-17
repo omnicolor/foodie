@@ -36,7 +36,8 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.0",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "matanyadaev/laravel-eloquent-spatial": "^4.2"
     },
     "require-dev": {
         "brianium/paratest": "^7.4",
@@ -67,7 +68,7 @@
             "@psalm"
         ],
         "coverage": [
-            "XDEBUG_MODE=coverage ./artisan test --parallel --recreate-databases --coverage-html=public/coverage --coverage-xml=public/coverage/coverage-xml --log-junit=public/coverage/junit.xml"
+            "XDEBUG_MODE=coverage ./artisan test --parallel --recreate-databases --coverage-html=public/coverage-report"
         ],
         "lint": "parallel-lint --colors app config database routes tests",
         "php-cs-fixer": "php-cs-fixer fix --dry-run --config=php-cs-fixer.php -v --diff",

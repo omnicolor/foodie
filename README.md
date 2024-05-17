@@ -10,7 +10,7 @@ After cloning the repository, install the [Composer](https://getcomposer.org) de
 composer install
 ./artisan migrate
 ```
-Since this project only uses a small amount of data and doesn't have much in the way of complicated queries or concurrency, it uses SQLite3 for its local database.
+Since this project requires geospatial calculations it needs a database with those extensions, like MySQL.
 
 ## Loading data
 Ingesting data is done via an Artisan command:
@@ -29,7 +29,7 @@ All of the automated tests can be run through Composer:
 $ composer all
 ```
 If you'd like to run an individual check, composer has several scripts available:
-* `coverage` - Build a [PHPUnit](https://phpunit.readthedocs.io/) code coverage report that will be available in "public/coverage" or on your site at "<host>/coverage/index.html".
+* `coverage` - Build a [PHPUnit](https://phpunit.readthedocs.io/) code coverage report that will be available in "public/coverage-report" or on your site at "<host>/coverage-report/index.html".
 * `lint` - Run [PHP-Parallel-Lint](https://github.com/php-parallel-lint/PHP-Parallel-Lint) across the entire codebase.
 * `php-cs-fixer` - Run
     [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)'s dry run on the entire codebase.
