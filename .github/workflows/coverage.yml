@@ -18,7 +18,7 @@ jobs:
         with:
           tools: composer:v2
           php-version: ${{ matrix.php-version }}
-          extensions: "json, mbstring, mongodb, pdo, xdebug"
+          extensions: "json, mbstring, pdo, xdebug"
 
       - name: Get Composer Cache Directory
         id: composer-cache
