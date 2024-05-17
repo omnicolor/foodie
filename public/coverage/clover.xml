@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1715975730">
-  <project timestamp="1715975730">
+<coverage generated="1715975980">
+  <project timestamp="1715975980">
     <file name="/home/runner/work/foodie/foodie/app/Console/Commands/ImportFoodTruckData.php">
       <class name="App\Console\Commands\ImportFoodTruckData" namespace="global">
         <metrics complexity="13" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="63" coveredstatements="0" elements="66" coveredelements="0"/>
