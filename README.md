@@ -10,7 +10,7 @@ After cloning the repository, install the [Composer](https://getcomposer.org) de
 composer install
 ./artisan migrate
 ```
-Since this project requires geospatial calculations, it needs a database with those extensions, like MySQL.
+Since this project requires geospatial calculations it needs a database with those extensions, like MySQL.
 
 ## Loading data
 Ingesting data is done via an Artisan command:
