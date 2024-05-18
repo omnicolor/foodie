@@ -10,26 +10,21 @@ use MatanYadaev\EloquentSpatial\Enums\Srid;
 return new class() extends Migration {
     public function up(): void
     {
-        Schema::create('food_trucks', function (Blueprint $table): void {
+        Schema::create('home_locations', function (Blueprint $table): void {
             $table->id();
-            // Longest data for cuisine and name in the current data set is 208.
-            // Give it a bit of space in case a vendor is very verbose.
-            $table->string('cuisine', 255);
-            $table->string('name', 255);
+            $table->string('channel_id', 20);
             $table->geography(
                 'location',
                 subtype: 'point',
                 srid: Srid::WGS84->value
             );
-            $table->string('truck_id');
+            $table->string('set_by', 20);
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('food_trucks');
+        Schema::dropIfExists('home_locations');
     }
 };

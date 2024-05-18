@@ -10,7 +10,12 @@ After cloning the repository, install the [Composer](https://getcomposer.org) de
 composer install
 ./artisan migrate
 ```
+
 Since this project requires geospatial calculations it needs a database with those extensions, like MySQL.
+
+This project integrates with Slack, so you'll need to [create a new Slack app](https://api.slack.com/apps). On the Basic Information page, note the `Signing Secret` and the `Verification Token`, and add those to your .env file.
+
+Next, click on `Slash Commands` in the left navigation and create a new command. The command name will be what Slack users type to interact with this service. Naming the command `foodie` will have users type `/foodie feed-me` for example.
 
 ## Loading data
 Ingesting data is done via an Artisan command:
@@ -31,8 +36,7 @@ $ composer all
 If you'd like to run an individual check, composer has several scripts available:
 * `coverage` - Build a [PHPUnit](https://phpunit.readthedocs.io/) code coverage report that will be available in "public/coverage-report" or on your site at "<host>/coverage-report/index.html".
 * `lint` - Run [PHP-Parallel-Lint](https://github.com/php-parallel-lint/PHP-Parallel-Lint) across the entire codebase.
-* `php-cs-fixer` - Run
-    [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)'s dry run on the entire codebase.
+* `php-cs-fixer` - Run [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)'s dry run on the entire codebase.
 * `phpstan` - Run [PHPstan](https://phpstan.org/)'s highest level across the entire codebase.
 * `psalm` - Run [Psalm](https://psalm.dev/) across the entire codebase.
 * `static` - Run lint, PHPStan, and Psalm targets.
