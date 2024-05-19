@@ -42,3 +42,23 @@ If you'd like to run an individual check, composer has several scripts available
 * `static` - Run lint, PHPStan, and Psalm targets.
 * `style` - Run php-cs-fixer.
 * `test` - Run PHPUnit tests without generating a code coverage report.
+
+## Using Foodie
+
+Once Foodie has been installed in your Slack team's workspace, you'll be able to interact with it via slash commands. The first step for a channel is to tell Foodie where you're located. This is stored on a per-channel basis, so geographically distributed teams can have different results for their location.
+
+```
+/foodie set-home 37.71019301997575 -122.4552219061259
+```
+
+Foodie will let you know that it has saved (or updated) the location for the channel:
+
+<img alt="Screenshot of a Slack user using a slash command to set the channel's location, and Food responding that it has been set." src="public/images/setting-location.png">
+
+After the location has been set, anyone may interact with Foodie for it to suggest a food truck within a certain radius. For example, to get a random food truck within 4 miles:
+
+```
+/foodie feed-me 4
+```
+
+<img alt="Screenshot of a Slack user getting suggestions from Foodie for where to eat." src="public/images/getting-suggestions.png">

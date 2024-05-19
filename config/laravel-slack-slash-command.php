@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\SlashCommandHandlers\FeedMe;
 use App\SlashCommandHandlers\SetHome;
 use Spatie\SlashCommand\Handlers\CatchAll;
 use Spatie\SlashCommand\Handlers\Help;
@@ -40,6 +41,7 @@ return [
      */
     'handlers' => [
         // Add your own handlers here.
+        FeedMe::class,
         SetHome::class,
 
         // This handler will display instructions on how to use the various
