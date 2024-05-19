@@ -10,9 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use MatanYadaev\EloquentSpatial\Enums\Srid;
 use MatanYadaev\EloquentSpatial\Objects\Point;
-use ReflectionObject;
 use Spatie\SlashCommand\Request;
-use Spatie\SlashCommand\Response;
 use Tests\TestCase;
 
 /**
@@ -21,17 +19,6 @@ use Tests\TestCase;
 final class SetHomeTest extends TestCase
 {
     use RefreshDatabase;
-
-    /**
-     * @return array<string, mixed>
-     */
-    protected function getAttachmentFromResponse(Response $response): array
-    {
-        $reflect = new ReflectionObject($response);
-        return $reflect->getProperty('attachments')
-            ->getValue($response)[0]
-            ->toArray();
-    }
 
     protected function getUniqueChannelId(): string
     {

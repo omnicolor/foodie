@@ -10,7 +10,10 @@ use MatanYadaev\EloquentSpatial\Objects\Point;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 
 /**
+ * @property string $cuisine
  * @property Point $location
+ * @property string $name
+ * @property string $truck_id
  */
 class FoodTruck extends Model
 {
@@ -38,4 +41,9 @@ class FoodTruck extends Model
         'name',
         'truck_id',
     ];
+
+    public function __toString(): string
+    {
+        return $this->attributes['name'];
+    }
 }
